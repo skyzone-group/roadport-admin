@@ -6,7 +6,8 @@ use App\Http\Controllers\Blade\RoleController;
 use App\Http\Controllers\Blade\PermissionController;
 use App\Http\Controllers\Blade\HomeController;
 use App\Http\Controllers\Blade\ApiUserController;
-
+use App\Http\Controllers\Blade\CarsController;
+use App\Http\Controllers\Blade\CountryController;
 /*
 |--------------------------------------------------------------------------
 | Blade (front-end) Routes
@@ -25,6 +26,7 @@ Auth::routes();
 Route::get('/', function (){
     return redirect()->route('home');
 })->name('welcome');
+
 
 // Web pages
 Route::group(['middleware' => 'auth'],function (){
@@ -66,6 +68,23 @@ Route::group(['middleware' => 'auth'],function (){
     Route::post('/api-user/update/{id}',[ApiUserController::class,'update'])->name('api-userUpdate');
     Route::delete('/api-user/delete/{id}',[ApiUserController::class,'destroy'])->name('api-userDestroy');
     Route::delete('/api-user-token/delete/{id}',[ApiUserController::class,'destroyToken'])->name('api-tokenDestroy');
+
+
+    // Cars
+    Route::get('/cars', [CarsController::class,'index'])->name('carIndex');
+    Route::get('/car/add', [CarsController::class,'add'])->name('carsAdd');
+    Route::post('/car/create',[CarsController::class,'create'])->name('carCreate');
+    Route::get('/car/{car_id}/edit',[CarsController::class,'edit'])->name('carEdit');
+    Route::post('/car/update/{car_id}',[CarsController::class,'update'])->name('carUpdate');
+    Route::delete('/car/delete/{car_id}',[CarsController::class,'destroy'])->name('carDestroy');
+
+    // Cities
+    Route::get('/countries',[CountryController::class, 'index'])->name('countryIndex');
+    Route::get('/country/add',[CountryController::class, 'add'])->name('countryAdd');
+    Route::post('/country/create',[CountryController::class, 'create'])->name('countryCreate');
+    Route::get('/country/{id}/edit',[CountryController::class, 'edit'])->name('countryEdit');
+    Route::post('/country/update/{id}',[CountryController::class, 'update'])->name('countryUpdate');
+    Route::delete('/country/delete/{id}',[CountryController::class,'destroy'])->name('countryDestroy');
 });
 
 // Change language session condition

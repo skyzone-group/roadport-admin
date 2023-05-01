@@ -54,6 +54,18 @@
                 </a>
             </li>
         @endcan
+        <li class="nav-item">
+            <a href="{{ route('carIndex') }}" class="nav-link {{ (Request::is('cars*') || Request::is('car*') ) ? "active":'' }}">
+                <i class="fas fa-car"></i>
+                <p>@lang('cruds.cars.title')</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('countryIndex') }}" class="nav-link {{ (Request::is('countries*') || Request::is('country*') ) ? "active":'' }}">
+                <i class="fas fa-globe-asia"></i>
+                <p>@lang('cruds.country.title')</p>
+            </a>
+        </li>
     </ul>
 
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
