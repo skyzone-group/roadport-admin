@@ -104,4 +104,19 @@ return [
             'not_comment'              => 'Без комментариев'
         ],
     ],
+    'botuser'       => [
+        'title'          => 'Пользователи',
+        'title_singular' => 'Рассылки',
+        'control_title'  => 'Управление рассылки',
+        'fields'         => [
+            'id'                       => 'ID',
+            'name'                     => 'Название',
+            "phone"                    => 'Телефон',
+            "order_amount"             => 'Кол-во заявки',
+            "comments"                 => 'Комментарий',
+            "upload"                   => 'Загрузить',
+            'groups'                   => 'Группы',
+            'created_at'               => 'Дата создания',
+        ],
+    ],
 ];

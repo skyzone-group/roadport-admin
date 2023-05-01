@@ -8,6 +8,7 @@ use App\Http\Controllers\Blade\HomeController;
 use App\Http\Controllers\Blade\ApiUserController;
 use App\Http\Controllers\Blade\CarsController;
 use App\Http\Controllers\Blade\CountryController;
+use App\Http\Controllers\Blade\BotuserController;
 /*
 |--------------------------------------------------------------------------
 | Blade (front-end) Routes
@@ -69,7 +70,6 @@ Route::group(['middleware' => 'auth'],function (){
     Route::delete('/api-user/delete/{id}',[ApiUserController::class,'destroy'])->name('api-userDestroy');
     Route::delete('/api-user-token/delete/{id}',[ApiUserController::class,'destroyToken'])->name('api-tokenDestroy');
 
-
     // Cars
     Route::get('/cars', [CarsController::class,'index'])->name('carIndex');
     Route::get('/car/add', [CarsController::class,'add'])->name('carsAdd');
@@ -85,6 +85,15 @@ Route::group(['middleware' => 'auth'],function (){
     Route::get('/country/{id}/edit',[CountryController::class, 'edit'])->name('countryEdit');
     Route::post('/country/update/{id}',[CountryController::class, 'update'])->name('countryUpdate');
     Route::delete('/country/delete/{id}',[CountryController::class,'destroy'])->name('countryDestroy');
+
+    //Botusers
+    Route::get('/botusers',[BotuserController::class, 'index'])->name('botuserIndex');
+    Route::get('/botusers/{botuser_id}/edit',[BotuserController::class, 'edit'])->name('botuserEdit');
+    Route::post('/botusers/update/{botuser_id}',[BotuserController::class, 'update'])->name('botuserUpdate');
+    Route::get('/botusers/{botuser_id}/show',[BotuserController::class, 'show'])->name('botuserShow');
+
+    Route::get('/botusers/{botuser_id}/editaddress',[BotuserController::class, 'editaddress'])->name('botuserEditaddress');
+    Route::post('/botusers/updateaddress/{botuser_id}',[BotuserController::class, 'updateaddress'])->name('botuserUpdateaddress');
 });
 
 // Change language session condition
