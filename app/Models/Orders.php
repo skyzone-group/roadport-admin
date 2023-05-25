@@ -2,16 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Botuser extends Model
+class Orders extends Model
 {
-    protected $table = 'botusers';
-
-    protected $sorting = ['name', 'created_at'];
+    use HasFactory;
+    protected $table = 'requests';
+    protected $guarded = ['id'];
+    protected $sorting = [
+        'summa',
+        'status_admin',
+        'payment',
+        'payment_method',
+    ];
 
     public static function deepFilters(){
-
 
         $tiyin = [
         ];
@@ -68,10 +74,11 @@ class Botuser extends Model
                 }
             }
         }
-        if ($request->has('user_type') && $request->user_type != '')
+
+        if ($request->has('name') && $request->name != '')
         {
             $botusers = Botuser::select('tg_user_id')
-                ->where('user_type','like',"%$request->user_type%")
+                ->where('name','like',"%$request->name%")
                 ->get();
             //dd($botusers);
             if ($botusers->isNotEmpty())
@@ -87,17 +94,23 @@ class Botuser extends Model
         return $query;
     }
 
-    public function orders()
+    public function owner()
     {
-        return $this->hasMany(Orders::class,'tg_user_id','tg_user_id');
-    }
-    public function complaints()
-    {
-        return $this->hasMany(Complaint::class,'tg_user_id','tg_user_id');
+        return $this->hasOne(Botuser::class,'tg_user_id','tg_user_id');
     }
 
-    public function car()
+    public function driver()
     {
-        return $this->belongsTo(Cars::class, 'car_id', 'id');
+        return $this->hasOne(Botuser::class,'tg_user_id','tg_driver_id');
+    }
+
+    public function regionFrom()
+    {
+        return $this->hasOne(Countries::class, 'id', 'from_region');
+    }
+
+    public function regionTo()
+    {
+        return $this->hasOne(Countries::class, 'id', 'to_region');
     }
 }

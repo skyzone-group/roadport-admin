@@ -9,6 +9,8 @@ use App\Http\Controllers\Blade\ApiUserController;
 use App\Http\Controllers\Blade\CarsController;
 use App\Http\Controllers\Blade\CountryController;
 use App\Http\Controllers\Blade\BotuserController;
+use App\Http\Controllers\Blade\OrderController;
+use App\Http\Controllers\Blade\MailingController;
 /*
 |--------------------------------------------------------------------------
 | Blade (front-end) Routes
@@ -86,6 +88,21 @@ Route::group(['middleware' => 'auth'],function (){
     Route::post('/country/update/{id}',[CountryController::class, 'update'])->name('countryUpdate');
     Route::delete('/country/delete/{id}',[CountryController::class,'destroy'])->name('countryDestroy');
 
+    //Orders
+    Route::get('/order', [OrderController::class,'index'])->name('orderIndex');
+    Route::post('/order/status', [OrderController::class,'status'])->name('orderStatus');
+    Route::get('/order-export', [OrderController::class, 'orderExport'])->name('order-export');
+
+    //Mailings
+    Route::get('/mailing', [MailingController::class,'index'])->name('mailingIndex');
+    Route::get('/mailing/add', [MailingController::class,'add'])->name('mailingAdd');
+    Route::post('/mailing/create', [MailingController::class,'create'])->name('mailingCreate');
+    Route::get('/mailing/{mailing_id}/edit', [MailingController::class,'edit'])->name('mailingEdit');
+    Route::post('/mailing/update/{mailing_id}', [MailingController::class,'update'])->name('mailingUpdate');
+    Route::delete('/mailing/delete/{id}', [MailingController::class,'destroy'])->name('mailingDestroy');
+    Route::post('/mailing/status', [MailingController::class,'status'])->name('mailingStatus');
+
+    
     //Botusers
     Route::get('/botusers',[BotuserController::class, 'index'])->name('botuserIndex');
     Route::get('/botusers/{botuser_id}/edit',[BotuserController::class, 'edit'])->name('botuserEdit');

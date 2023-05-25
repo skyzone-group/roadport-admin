@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Botuser extends Model
+class Mailing extends Model
 {
-    protected $table = 'botusers';
-
-    protected $sorting = ['name', 'created_at'];
+    use HasFactory;
+    protected $table = 'mailings';
+    protected $guarded = ['id'];
 
     public static function deepFilters(){
-
 
         $tiyin = [
         ];
@@ -21,7 +21,7 @@ class Botuser extends Model
 
         $query = self::where('id','!=','0');
 
-        foreach ($obj->sorting as $item) {
+        foreach ($obj->fillable as $item) {
             //request operator key
             $operator = $item.'_operator';
 
@@ -68,36 +68,30 @@ class Botuser extends Model
                 }
             }
         }
-        if ($request->has('user_type') && $request->user_type != '')
-        {
-            $botusers = Botuser::select('tg_user_id')
-                ->where('user_type','like',"%$request->user_type%")
-                ->get();
-            //dd($botusers);
-            if ($botusers->isNotEmpty())
-            {
-                $query->whereIn('tg_user_id',$botusers->map(function ($item){
-                    return $item->tg_user_id;
-                }));
-
-            }
-
-        }
 
         return $query;
     }
 
-    public function orders()
+    public function public_path():string
     {
-        return $this->hasMany(Orders::class,'tg_user_id','tg_user_id');
-    }
-    public function complaints()
-    {
-        return $this->hasMany(Complaint::class,'tg_user_id','tg_user_id');
+        return public_path()."/images/";
     }
 
-    public function car()
+    public function path():string
     {
-        return $this->belongsTo(Cars::class, 'car_id', 'id');
+        return "/images/".$this->photo;
+    }
+
+    public function absolute_path():string
+    {
+        return public_path().'/images/'.$this->photo;
+    }
+
+    public function remove()
+    {
+        # Delete all releated thins to product
+
+        \Illuminate\Support\Facades\File::delete($this->absolute_path());
+        return $this->delete();
     }
 }

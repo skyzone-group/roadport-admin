@@ -72,6 +72,17 @@
                                                         </div>
                                                         <div class="form-group row align-items-center">
                                                             <div class="col-3">
+                                                                <h6>@lang('cruds.botuser.fields.user_type')</h6>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <select name="user_type" class="form-control form-control-sm">
+                                                                    <option value="cargo_owner"> Владелец </option>
+                                                                    <option value="driver"> Водитель </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row align-items-center">
+                                                            <div class="col-3">
                                                                 <h6>Дата создания</h6>
                                                             </div>
                                                             <div class="col-2">
@@ -132,7 +143,7 @@
                                 <tr class="text-center">
                                     <th>@lang('cruds.botuser.fields.created_at')</th>
                                     <th>@lang('cruds.botuser.fields.name')</th>
-                                    <!-- <th>Телефон</th> -->
+                                    <th>@lang('cruds.botuser.fields.user_type')</th>
                                     <th>@lang('cruds.botuser.fields.order_amount')</th>
                                     <th>@lang('cruds.botuser.fields.comments')</th>
                                     <th>@lang('global.actions')</th>
@@ -143,6 +154,7 @@
                                     <tr>
                                         <td class="text-center">{{ date('H:i:s d-m-Y', strtotime($botuser->created_at)) }}</td>
                                         <td class="text-center"> {{ $botuser->name }}</td>
+                                        <td class="text-center"> {{ $botuser->user_type == 'cargo_owner' ? 'Владелец' : 'Водитель' }}</td>
                                         <!-- <td class="text-center">{{ $botuser->phone }}</td> -->
                                         <td class="text-center">{{ sizeof($botuser->orders) }}</td>
                                         <td class="text-center">{{ $botuser->address == null ?'-' : $botuser->address }}</td>

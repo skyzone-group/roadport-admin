@@ -58,6 +58,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('orderIndex') }}" class="nav-link {{ Request::is('order*') ? "active":'' }}">
+                <i class="fas fa-clipboard-list"></i>
+                <p>@lang('cruds.orders.title')</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/mailing" class="nav-link {{ Request::is('mailing*') ? "active":'' }}">
+                <i class="fas fa-envelope"></i>
+                <p> @lang('cruds.mailing.title') </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('botuserIndex') }}" class="nav-link {{ Request::is('botusers*') ? "active":'' }}">
                 <i class="fas fa-users"></i>
                 <p >@lang('cruds.botuser.title')</p>
