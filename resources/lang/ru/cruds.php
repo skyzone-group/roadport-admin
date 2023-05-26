@@ -157,7 +157,7 @@ return [
             'subject_name'         => 'Название предмета:',
             'group_name'           => 'Имя группы:',
             'test_date'            => 'Время начала теста:',
-            'order_price'          => 'Сумма заказа:',
+            'order_price'          => 'Цена доставки:',
             'products_count'       => 'Общий продукт:',
             'total_summ'           => 'Итого сумма:',
         ]
